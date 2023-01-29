@@ -50,6 +50,12 @@ GIVEN a command-line application that accepts user input
 - view total utilized budget of dept (SUM salaries)
 
 
+## Resources
+
+- w3schools: [SQL Joins](https://www.w3schools.com/sql/sql_join.asp)
+
+- sql joins [tutorial](https://learnsql.com/blog/what-is-self-join-sql/)
+
 
 
 
