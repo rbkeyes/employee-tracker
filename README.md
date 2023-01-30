@@ -58,7 +58,9 @@ GIVEN a command-line application that accepts user input
 
 - stackoverflow mysql [CONCAT_WS](https://stackoverflow.com/questions/18860233/mysql-select-as-combine-two-columns-into-one)
 
+- console.table [docs](https://www.npmjs.com/package/console.table)
 
+- 
 
 
 
