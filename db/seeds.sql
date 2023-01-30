@@ -1,5 +1,6 @@
 INSERT INTO department (name)
-VALUES  ('data science');
+VALUES  ('data science'),
+        ('accounting');
 
 INSERT INTO role (title, salary, department_id)
 VALUES  ('data scientist', 200, 1),
