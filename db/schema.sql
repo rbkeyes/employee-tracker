@@ -27,6 +27,4 @@ CREATE TABLE employee (
   REFERENCES role(id)
   ON DELETE SET NULL,
   manager_id INT
-
--- add id fom  other table if needed
 );

@@ -56,6 +56,10 @@ GIVEN a command-line application that accepts user input
 
 - sql joins [tutorial](https://learnsql.com/blog/what-is-self-join-sql/)
 
+- stackoverflow mysql [CONCAT_WS](https://stackoverflow.com/questions/18860233/mysql-select-as-combine-two-columns-into-one)
+
+
+
 
 
 

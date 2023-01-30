@@ -12,22 +12,12 @@ SELECT employee.id,
     role.title, 
     department.name AS department, 
     role.salary, 
-    concat(employee.first_name + employee.last_name) AS manager
-FROM employee
+    CONCAT_WS(' ', manager.first_name, manager.last_name) as manager
+FROM Employee employee
 JOIN role
 ON employee.role_id = role.id
 JOIN department 
-ON role.department_id = department.id;
-
-
--- need to figure out how to add this join to above query
-SELECT
-    employee.id,
-        employee.first_name,
-        employee.manager_id,
-        manager.first_name as manager
-FROM Employee employee
+ON role.department_id = department.id
 JOIN Employee manager
-ON  employee.manager_id = manager.id
-
+ON employee.manager_id = manager.id;
 
