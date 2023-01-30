@@ -1,11 +1,13 @@
--- JOIN role and department at department.id
--- show id, title, dept. name, salary
+-- view all departments
+SELECT * FROM department;
+
+-- view all roles
 SELECT role.id, role.title, department.name AS department, role.salary
 FROM role
 JOIN department 
 ON role.department_id = department.id;
 
--- JOIN employee & role + department (via role)
+-- view all employees
 SELECT employee.id, 
     employee.first_name, 
     employee.last_name, 
