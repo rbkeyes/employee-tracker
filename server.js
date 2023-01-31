@@ -20,41 +20,49 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
-const mainMenu = () => {
-    inquirer.prompt(prompts.mainMenu)
+const init = () => {
+    runPrompts(mainMenu)
+    .then((answers) => {
+        action(answers.mainMenu)
+    })
+};
+
+const runPrompts = (prompt) => {
+    inquirer.prompt(prompt)
         .then((answers) => {
-            const execute = answers.mainMenu
-            switch (execute) {
-                case 'View all departments':
-                    viewAll(departments);
-                    break;
-                case 'View all roles':
-                    viewAll(roles);
-                    break;
-                case 'View all employees':
-                    viewAll(employees);
-                    break;
-                case 'Add a department':
-                    addUpdateDrop(addDepartment);
-                    break;
-                case 'Add a role':
-                    addUpdateDrop(addRole);
-                    break;
-                case 'Add an employee':
-                    addUpdateDrop(addEmployee);
-                    break;
-                case 'Update an employee role':
-                    addUpdateDrop(updateEmployeeRole);
-                    break;
-                default:
-                    console.log("goodbye")
-                    break;
-            };
+            return answers;
         });
 };
 
-// view all from specified table
-const viewAll = (sql) => {
+const action = (act) => {
+    switch (act) {
+        case 'View all departments':
+            sql = departments;
+        case 'View all roles':
+            sql = roles;
+        case 'View all employees':
+            sql = employees;
+        queryDb(sql);
+        break;
+        case 'Add a department':
+            addUpdateDrop(addDepartment);
+            break;
+        case 'Add a role':
+            addUpdateDrop(addRole);
+            break;
+        case 'Add an employee':
+            addUpdateDrop(addEmployee);
+            break;
+        case 'Update an employee role':
+            addUpdateDrop(updateEmployeeRole);
+            break;
+        default:
+            console.log("goodbye")
+            break;
+    };
+};
+
+const queryDb = (sql) => {
     db.query(sql, (err, result) => {
         if (err) {
             console.error(err);
@@ -66,9 +74,23 @@ const viewAll = (sql) => {
     });
 };
 
+// view all from specified table
+// const viewAll = (sql) => {
+//     db.query(sql, (err, result) => {
+//         if (err) {
+//             console.error(err);
+//             return;
+//         }
+//         console.table(result);
+//         mainMenu();
+//         return;
+//     });
+// };
+
 // make a change to db table (add, update, drop)
 const addUpdateDrop = (sql, action) => {
-    db.query(sql,  (err, results) => {
+
+    db.query(sql, (err, results) => {
         if (err) {
             console.error(err)
             return;
@@ -79,6 +101,6 @@ const addUpdateDrop = (sql, action) => {
 };
 
 
-mainMenu();
+init();
 
 
