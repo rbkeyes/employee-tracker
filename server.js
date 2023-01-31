@@ -1,13 +1,10 @@
 // import dependencies
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { departments, roles, employees, addDepartment, addRole, addEmployee } = require('./utils/queries');
+const inquirer = require('inquirer')
+const queries = require('./utils/sequel/queries');
 
-const inquirer = require('inquirer');
-const prompts = require('./utils/prompts');
-
-// set PORT
-// const PORT = process.env.PORT || 3001;
+const prompts = require('./utils/inquirer/prompts');
 
 // Connect to database
 const db = mysql.createConnection(
@@ -20,56 +17,50 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
-let deptName = 'childcar';
-// const addDepartment =
-//     `INSERT INTO department (name)
-//     VALUES (?)`;
+const init = () => {
+    inquirer.prompt(prompts.mainMenu)
+        .then((answers) => {
+            selectAction(answers.mainMenu)
+        })
+        .then((sql) => {
+            queryDb(sql)
+        })
+};
 
-    db.query(addDepartment, deptName, (err, result) => {
+const queryDb = (sql) => {
+    db.query(sql, (err, result) => {
         if (err) {
             console.error(err);
+            return;
         }
-        console.log('success');
+        return result;
     });
+};
 
-    db.query(`SELECT * FROM department`, (err, table) => {
-        console.table(table);
-    });
+const selectAction = (action) => {
+    switch (action) {
+        case 'View all departments':
+            queryDb(departments);
+            break;
+        case 'View all roles':
+            queryDb(roles);
+            break;
+        case 'View all employees':
+            queryDb(employees);
+            break;
+        case 'Exit':
+            console.log('goodbye');
+            break;
+        default:
+            nextPrompt(aswers.mainMenu);
+            break;
+    };
+};
 
-// const mainMenu = () => {
-//     inquirer.prompt(prompts.mainMenu)
-//         .then((answers) => {
-//             const execute = answers.mainMenu
-//             switch (execute) {
-//                 case 'View all departments':
-//                     viewAll(departments);
-//                     break;
-//                 case 'View all roles':
-//                     viewAll(roles);
-//                     break;
-//                 case 'View all employees':
-//                     viewAll(employees);
-//                     break;
-//                 case 'Add a department':
-//                     addUpdateDrop(addDepartment, prompts.addDepartment, 'Department added');
-//                     break;
-//                 case 'Add a role':
-//                     addUpdateDrop(addRole, prompts.addRole, 'Role added');
-//                     break;
-//                 case 'Add an employee':
-//                     addUpdateDrop(addEmployee, prompts.addEmployee, 'Employee added');
-//                     break;
-//                 case 'Update an employee role':
-//                     addUpdateDrop(updateEmployeeRole, prompts.updateEmployeeRole, 'Employee role updated');
-//                     break;
-//                 default:
-//                     console.log("goodbye")
-//                     break;
-//             };
-//         });
-// };
 
-// // view all from specified table
+
+
+// view all from specified table
 // const viewAll = (sql) => {
 //     db.query(sql, (err, table) => {
 //         if (err) {
@@ -77,26 +68,74 @@ let deptName = 'childcar';
 //             return;
 //         }
 //         console.table(table);
-//         mainMenu();
+//         init();
 //         return;
 //     });
 // };
 
+// const nextPrompt = (answer) => {
+//     switch (answer) {
+//         case 'Add a department':
+//             addUpdateDrop(addDepartment, prompts.addDepartment);
+//             break;
+//         case 'Add a role':
+//             addUpdateDrop(addRole, prompts.addRole, 'Role added');
+//             break;
+//         case 'Add an employee':
+//             addUpdateDrop(addEmployee, prompts.addEmployee, 'Employee added');
+//             break;
+//         case 'Update an employee role':
+//             addUpdateDrop(updateEmployeeRole, prompts.updateEmployeeRole, 'Employee role updated');
+//             break;
+//     }
+// }
+
 // // make a change to db table (add, update, drop)
-// const addUpdateDrop = (sql, prompt, action) => {
+// const runPrompt = (prompt) => {
 //     inquirer.prompt(prompt).then((answers) => {
-//         db.query(sql, answers.addDepartment, (err, result) => {
-//             if (err) {
-//                 console.error(err)
-//                 return;
-//             }
-//             console.log(action);
-//             console.log(result);
-//         });
+//         db.query(sql, answers,
+//             (err, result) => {
+//                 if (err) {
+//                     console.error(err)
+//                     return;
+//                 }
+//                 console.log(answers)
+//                 console.log(action);
+//                 console.log(result);
+//                 init();
+//             });
 //     });
 // };
 
+// const getInput = (prompt, input) => {
+//     switch (prompt) {
+//         case prompts.addDepartment:
 
-// mainMenu();
+//             break;
+//         case 'View all roles':
+//             viewAll(roles);
+//             break;
+//         case 'View all employees':
+//             viewAll(employees);
+//             break;
+//         case 'Add a department':
+//             addUpdateDrop(addDepartment, prompts.addDepartment, 'Department added');
+//             break;
+//         case 'Add a role':
+//             addUpdateDrop(addRole, prompts.addRole, 'Role added');
+//             break;
+//         case 'Add an employee':
+//             addUpdateDrop(addEmployee, prompts.addEmployee, 'Employee added');
+//             break;
+//         case 'Update an employee role':
+//             addUpdateDrop(updateEmployeeRole, prompts.updateEmployeeRole, 'Employee role updated');
+//             break;
+//         default:
+//             console.log("goodbye")
+//             break;
+//     };
+// };
 
+
+init();
 
