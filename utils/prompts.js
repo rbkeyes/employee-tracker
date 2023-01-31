@@ -51,13 +51,13 @@ const prompts = {
             message: "Who is the employee's manager?",
             // choices: [get from employee table]
         },
-        updateEmployeeRole: {
-            name: 'updateRole',
-            type: 'list',
-            message: "What is the employee's new role?",
-            // choices: [get from role table]
-        }
     },
+    updateEmployeeRole: {
+        name: 'updateRole',
+        type: 'list',
+        message: "What is the employee's new role?",
+        // choices: [get from role table]
+    }
 };
 
 module.exports = prompts;

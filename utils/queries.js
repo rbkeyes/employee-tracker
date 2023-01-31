@@ -19,15 +19,15 @@ const employees =
 
 const addDepartment =
     `INSERT INTO department (name)
-    VALUES(answers.newDepartment)`;
+    VALUES (?)`;
 
 const addRole =
     `INSERT INTO role (title, salary, department_id)
-    VALUES(?)`
+    VALUES (?, ?, ?)`
 
 const addEmployee = 
-`INSERT INTO employee (first_name, last_name, role, manager)
-VALUES(?)`
+`INSERT INTO employee (first_name, last_name, role_id, manager_id) 
+VALUES (?, ?, ?, ?)`
 
 // role_id = answers.employeeRole
 const updateEmployeeRole = 
