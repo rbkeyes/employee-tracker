@@ -1,10 +1,12 @@
 // import dependencies
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { departments, roles, employees, addDepartment, addRole, addEmployee } = require('./utils/queries');
+const { departments, roles, employees, addRole, addEmployee, updateEmployeeRole } = require('./utils/queries');
+
+const Department = require('./lib/department')
 
 const inquirer = require('inquirer');
-const prompts = require('./utils/prompts');
+const { mainMenu, queryDept, queryRole, queryEmployee } = require('./utils/prompts');
 
 // set PORT
 // const PORT = process.env.PORT || 3001;
@@ -20,57 +22,66 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
-const mainMenu = () => {
-    inquirer.prompt(prompts.mainMenu)
-        .then((answers) => {
-            const execute = answers.mainMenu
-            switch (execute) {
-                case 'View all departments':
-                    viewAll(departments);
-                    break;
-                case 'View all roles':
-                    viewAll(roles);
-                    break;
-                case 'View all employees':
-                    viewAll(employees);
-                    break;
-                case 'Add a department':
-                    addUpdateDrop(addDepartment);
-                    break;
-                case 'Add a role':
-                    addUpdateDrop(addRole);
-                    break;
-                case 'Add an employee':
-                    addUpdateDrop(addEmployee);
-                    break;
-                case 'Update an employee role':
-                    addUpdateDrop(updateEmployeeRole);
-                    break;
-                default:
-                    console.log("goodbye")
-                    break;
-            };
-        });
+const init = (prompt) => {
+    inquirer.prompt(prompt)
+    .then((answers) => {
+        if (prompt === mainMenu) {
+            console.log(answers.mainMenu);
+            runQuery(answers.mainMenu)
+        } else {
+            console.log(answers);
+            init(mainMenu);
+            // return answers;
+        }
+    })
+};    
+
+const runQuery = (choice) => {
+    switch (choice) {
+        case 'View all departments':
+            viewTableData(departments);
+            break;
+        case 'View all roles':
+            viewTableData(roles);
+            break;
+        case 'View all employees':
+            viewTableData(employees);
+            break;
+        case 'Add a department':
+            init(queryDept);
+            break;
+        case 'Add a role':
+            init(queryRole);
+            break;
+        case 'Add an employee':
+            init(queryEmployee);
+            break;
+        case 'Update an employee role':
+            init(updateEmployeeRole);
+            break;
+        default:
+            console.log("goodbye")
+            break;
+    };
 };
 
-// view all from specified table
-const viewAll = (sql) => {
-    db.query(sql, (err, table) => {
+const viewTableData = (sql) => {
+    db.query(sql, (err, result) => {
         if (err) {
-            console.status(500);
+            console.error(err);
             return;
         }
-        console.table(table);
-        mainMenu();
-        return;
+        console.table(result);
+        init(mainMenu);
     });
 };
 
 // make a change to db table (add, update, drop)
 const addUpdateDrop = (sql, action) => {
+
     db.query(sql, (err, results) => {
         if (err) {
-            console.status(400)
+            console.error(err)
             return;
         }
         console.log(`${action} successful`);
@@ -79,6 +90,6 @@ const addUpdateDrop = (sql, action) => {
 };
 
 
-mainMenu();
+init(mainMenu);
 
 
