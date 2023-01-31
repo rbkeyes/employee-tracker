@@ -55,12 +55,12 @@ const mainMenu = () => {
 
 // view all from specified table
 const viewAll = (sql) => {
-    db.query(sql, (err, table) => {
+    db.query(sql, (err, result) => {
         if (err) {
-            console.status(500);
+            console.error(err);
             return;
         }
-        console.table(table);
+        console.table(result);
         mainMenu();
         return;
     });
@@ -68,9 +68,9 @@ const viewAll = (sql) => {
 
 // make a change to db table (add, update, drop)
 const addUpdateDrop = (sql, action) => {
-    db.query(sql, (err, results) => {
+    db.query(sql,  (err, results) => {
         if (err) {
-            console.status(400)
+            console.error(err)
             return;
         }
         console.log(`${action} successful`);
