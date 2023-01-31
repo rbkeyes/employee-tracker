@@ -1,13 +1,13 @@
 // import dependencies
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { allDepartments, allRoles, allEmployees, addDepartment, addRole } = require('./utils/queries');
+const { departments, roles, employees, addDepartment, addRole, addEmployee } = require('./utils/queries');
 
 const inquirer = require('inquirer');
-const prompts = require('./prompts');
+const prompts = require('./utils/prompts');
 
 // set PORT
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
 
 // Connect to database
 const db = mysql.createConnection(
@@ -20,14 +20,49 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
+const mainMenu = () => {
+    inquirer.prompt(prompts.mainMenu)
+        .then((answers) => {
+            const execute = answers.mainMenu
+            switch (execute) {
+                case 'View all departments':
+                    viewAll(departments);
+                    break;
+                case 'View all roles':
+                    viewAll(roles);
+                    break;
+                case 'View all employees':
+                    viewAll(employees);
+                    break;
+                case 'Add a department':
+                    addUpdateDrop(addDepartment);
+                    break;
+                case 'Add a role':
+                    addUpdateDrop(addRole);
+                    break;
+                case 'Add an employee':
+                    addUpdateDrop(addEmployee);
+                    break;
+                case 'Update an employee role':
+                    addUpdateDrop(updateEmployeeRole);
+                    break;
+                default:
+                    console.log("goodbye")
+                    break;
+            };
+        });
+};
+
 // view all from specified table
 const viewAll = (sql) => {
-    db.query(sql, (err, rows) => {
+    db.query(sql, (err, table) => {
         if (err) {
-            console.status(500)
+            console.status(500);
             return;
         }
-        console.table(rows)
+        console.table(table);
+        mainMenu();
+        return;
     });
 };
 
@@ -42,3 +77,8 @@ const addUpdateDrop = (sql, action) => {
         console.log(results);
     });
 };
+
+
+mainMenu();
+
+

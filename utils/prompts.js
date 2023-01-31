@@ -3,7 +3,7 @@ const prompts = {
         name: 'mainMenu',
         type: 'list',
         message: 'What would you like to do?',
-        choices: ['View all departments', 'View all roles', 'View all employees', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
+        choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
     },
     addDepartment: {
         name: 'newDepartment',
@@ -42,15 +42,21 @@ const prompts = {
         employeeRole: {
             name: 'employeeRole',
             type: 'list',
-            message: "What is the employee's role?"
-            // choices: get from role table 
+            message: "What is the employee's role?",
+            // choices: [get from role table] 
         },
         employeeManager: {
             name: 'employeeManager',
             type: 'list',
-            message: "Who is the employee's manager?"
-            // choices: get from employee table
+            message: "Who is the employee's manager?",
+            // choices: [get from employee table]
         },
+        updateEmployeeRole: {
+            name: 'updateRole',
+            type: 'list',
+            message: "What is the employee's new role?",
+            // choices: [get from role table]
+        }
     },
 };
 
