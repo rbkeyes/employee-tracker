@@ -1,5 +1,5 @@
 const departments =
-    `SELECT * FROM department`;
+            `SELECT * FROM department`;
 
 const roles =
     `SELECT role.id, role.title, department.name AS department, role.salary
@@ -17,10 +17,6 @@ const employees =
     LEFT JOIN Employee m
     ON e.manager_id = m.id`;
 
-const addDepartment =
-    `INSERT INTO department (name)
-    VALUES(answers.newDepartment)`;
-
 const addRole =
     `INSERT INTO role (title, salary, department_id)
     VALUES(?)`
@@ -35,4 +31,4 @@ const updateEmployeeRole =
 SET role_id = ?
 WHERE id = ?`
 
-module.exports = { departments, roles, employees, addDepartment, addRole, addEmployee };
+module.exports = { departments, roles, employees, addRole, addEmployee, updateEmployeeRole };
