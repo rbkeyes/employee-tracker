@@ -1,12 +1,12 @@
 // import dependencies
 const mysql = require('mysql2');
 const cTable = require('console.table');
-const { departments, roles, employees, addRole, addEmployee, updateEmployeeRole } = require('./utils/queries');
+const { departments, roles, employees, addRole, addEmployee, updateRole } = require('./utils/queries');
 
 const Department = require('./lib/department')
 
 const inquirer = require('inquirer');
-const { mainMenu, queryDept, queryRole, queryEmployee } = require('./utils/prompts');
+const { mainMenu, promptDept, promptRole, promptEmployee } = require('./utils/prompts');
 
 // set PORT
 // const PORT = process.env.PORT || 3001;
@@ -27,16 +27,17 @@ const init = (prompt) => {
     .then((answers) => {
         if (prompt === mainMenu) {
             console.log(answers.mainMenu);
-            runQuery(answers.mainMenu)
+            actOnChoice(answers.mainMenu)
         } else {
             console.log(answers);
+
             init(mainMenu);
             // return answers;
         }
     })
 };    
 
-const runQuery = (choice) => {
+const actOnChoice = (choice) => {
     switch (choice) {
         case 'View all departments':
             viewTableData(departments);
