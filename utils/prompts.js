@@ -48,11 +48,11 @@ const promptEmployee = [
     }
 ];
 
-// promptUpdate = {
-//     name: 'updateRole',
-//     type: 'list',
-//     message: "What is the employee's new role?",
-//     choices: [get from role table]
-// };
+promptUpdate = {
+    name: 'updateRole',
+    type: 'list',
+    message: "Select the employee's new role?",
+    // choices: [get from role table]
+};
 
-module.exports = { mainMenu, promptDept, promptRole, promptEmployee };
+module.exports = { mainMenu, promptDept, promptRole, promptEmployee, promptUpdate };

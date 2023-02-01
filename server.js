@@ -6,7 +6,7 @@ const { departments, roles, employees, addRole, addEmployee, updateRole } = requ
 const Department = require('./lib/department')
 
 const inquirer = require('inquirer');
-const { mainMenu, promptDept, promptRole, promptEmployee } = require('./utils/prompts');
+const { mainMenu, promptDept, promptRole, promptEmployee, promptUpdate } = require('./utils/prompts');
 
 // set PORT
 // const PORT = process.env.PORT || 3001;
@@ -49,16 +49,16 @@ const actOnChoice = (choice) => {
             viewTableData(employees);
             break;
         case 'Add a department':
-            init(queryDept);
+            init(promptDept);
             break;
         case 'Add a role':
-            init(queryRole);
+            init(promptRole);
             break;
         case 'Add an employee':
-            init(queryEmployee);
+            init(promptEmployee);
             break;
         case 'Update an employee role':
-            init(updateEmployeeRole);
+            init(promptUpdate);
             break;
         default:
             console.log("goodbye")
@@ -78,7 +78,7 @@ const viewTableData = (sql) => {
 };
 
 // make a change to db table (add, update, drop)
-const addUpdateDrop = (sql, action) => {
+const addUpdateDrop = (prompt, sql) => {
 
     db.query(sql, (err, results) => {
         if (err) {

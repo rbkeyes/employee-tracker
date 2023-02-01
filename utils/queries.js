@@ -17,13 +17,7 @@ const employees =
     LEFT JOIN Employee m
     ON e.manager_id = m.id`;    
 
-const addEmployee = 
-
-
 // role_id = answers.employeeRole
-const updateRole = 
-`UPDATE employee
-SET role_id = ?
-WHERE id = ?`
+
 
 module.exports = { departments, roles, employees, addRole, addEmployee, updateRole };
