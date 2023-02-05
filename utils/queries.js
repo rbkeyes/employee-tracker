@@ -17,7 +17,17 @@ const employees =
     LEFT JOIN Employee m
     ON e.manager_id = m.id`;    
 
-// role_id = answers.employeeRole
+const addDepartment = `INSERT INTO department (name)
+    VALUES(?)`;
 
+const addRole = `INSERT INTO role (title, salary, department_id)
+VALUES(?, ?, ?)`;
 
-module.exports = { departments, roles, employees, addRole, addEmployee, updateRole };
+const addEmployee = `INSERT INTO employee (first_name, last_name, role, manager)
+VALUES(?, ?, ? ,?)`;
+
+const updateRole = `UPDATE employee
+SET role_id = ?
+WHERE id = ?`;
+
+module.exports = { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole };

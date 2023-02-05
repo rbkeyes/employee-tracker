@@ -1,3 +1,5 @@
+const list = [];
+
 const mainMenu = {
     name: 'mainMenu',
     type: 'list',
@@ -5,54 +7,63 @@ const mainMenu = {
     choices: ['View all departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee role', 'Exit']
 };
 
-const promptDept = {
-    name: 'newDepartment',
+const newDept = {
+    name: 'newDept',
     type: 'input',
-    message: 'What is the name of the department?'
+    message: 'What is the name of the department?',
 };
 
-const promptRole = [ {
+const newRole = [
+    {
         name: 'newRole',
         type: 'input',
-        message: 'What is the name of the role?'
+        message: 'What is the name of the role?',
     }, {
         name: 'salary',
         type: 'input',
-        message: 'What is the salary of the role?'
-    // }, {
-    //     name: 'roleDept',
-    //     type: 'list',
-    //     message: 'What department does the role belong to?'
-    //     choices: get from department table
-    }];
-
-const promptEmployee = [
-    {
-        name: 'firstName',
-        type: 'input',
-        message: "What is the employee's first name?"
+        message: 'What is the salary of the role?',
     }, {
-        name: 'lastName',
-        type: 'input',
-        message: "What is the employee's last name?"
-    // }, {
-    //     name: 'employeeRole',
-    //     type: 'list',
-    //     message: "What is the employee's role?",
-    //     choices: [get from role table] 
-    // }, {
-    //     name: 'employeeManager',
-    //     type: 'list',
-    //     message: "Who is the employee's manager?",
-    //     choices: [get from employee table]
+        name: 'dept',
+        type: 'list',
+        message: 'What department does the role belong to?',
+        choices: ['accounting', 'engineering', 'data science'],
     }
 ];
 
-promptUpdate = {
-    name: 'updateRole',
-    type: 'list',
-    message: "Select the employee's new role?",
-    // choices: [get from role table]
-};
+const newEmployee = [
+    {
+        name: 'firstName',
+        type: 'input',
+        message: "What is the employee's first name?",
+    }, {
+        name: 'lastName',
+        type: 'input',
+        message: "What is the employee's last name?",
+    }, {
+        name: 'role',
+        type: 'list',
+        message: "What is the employee's role?",
+        choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+    }, {
+        name: 'manager',
+        type: 'list',
+        message: "Who is the employee's manager?",
+        choices: ['Reed', 'Parker', 'Tatum', 'Lilly'],
+    }
+];
 
-module.exports = { mainMenu, promptDept, promptRole, promptEmployee, promptUpdate };
+const updateEmployeeRole = [
+    {
+        name: 'selectEmployee',
+        type: 'list',
+        message: "Which employee's role would you like to update?",
+        list: [1, 2, 3]
+    }, {
+        name: 'updateRole',
+        type: 'list',
+        message: "Select the employee's new role?",
+        choices: ['accountant', 'engineer', 'data scientist', 'manager', 'intern'],
+    }
+];
+
+module.exports = { list, mainMenu, newDept, newRole, newEmployee, updateEmployeeRole };
