@@ -11,6 +11,9 @@ const newDept = {
     name: 'newDept',
     type: 'input',
     message: 'What is the name of the department?',
+    when: (answers) => {
+        answers.mainMenu === mainMenu.choices[3];
+    }
 };
 
 const newRole = [

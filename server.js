@@ -19,7 +19,7 @@ const db = mysql.createConnection(
 );
 
 const init = () => {
-    inquirer.prompt(mainMenu)
+    inquirer.prompt([mainMenu, newDept])
         .then((answers) => {
             switch (answers.mainMenu) {
                 case 'View all departments':
