@@ -2,7 +2,7 @@
 const mysql = require('mysql2');
 const cTable = require('console.table');
 const inquirer = require('inquirer');
-const { questions } = require('./utils/questions');
+const questions = require('./utils/questions');
 const { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole } = require('./utils/queries');
 
 // Connect to database
@@ -18,8 +18,8 @@ const db = mysql.createConnection(
 
 const init = async() => {
     try {
-        const answers = await inquirer.prompt(mainMenu);
-        console.log(answers.mainMenu);
+        const answers = await inquirer.prompt(questions);
+        console.log(answers);
     } catch (err) {
         console.error(err);
     }
