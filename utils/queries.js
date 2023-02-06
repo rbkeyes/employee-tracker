@@ -30,6 +30,4 @@ const updateRole = `UPDATE employee
 SET role_id = ?
 WHERE id = ?`;
 
-
-
 module.exports = { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole };

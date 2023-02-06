@@ -19,22 +19,55 @@ const db = mysql.createConnection(
 const init = async () => {
     try {
         const answers = await inquirer.prompt(questions);
-        console.log(answers);
+    //     switch (questions) {
+    //         case questions[0]:
+    //             if ('View all departments') {viewTable(departments)}
+    //             else if ('View all roles') 
+    //             {viewTable(roles)}
+    //             else if ('View all employees')
+    //             {viewTable(employees)}
+    //             break;
+    //         case questions[1]:
+    //             viewTable(roles);
+    //             break;
+    //         case questions[0].choices[2]:
+    //             viewTable(employees);
+    //             break;
+    //         case questions[1].answers: 
+    //             break;
+    //         default:
+    //             console.log("Goodbye")
+    //             break;
+    //     };
     } catch (err) {
         console.error(err);
     }
 };
 
-const selectAll = async (sql) => {
+const getChoices = (sql) => {
     db.query(sql, (err, results) => {
         if (err) {
             console.error(err);
             return;
         }
-        const resultsArr = (results.map(a => a.name));
-        return resultsArr;
+        // const resultsArr = (results.map(a => a.name));
+        // return resultsArr;
+        return results;
+    }
+    )
+};
+
+const viewTable = (sql) => {
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error(err);
+            return;
         }
-    )};
+        console.log(' ');
+        console.table(result);
+        init();
+    });
+};
 
 init();
 

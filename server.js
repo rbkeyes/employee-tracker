@@ -21,7 +21,7 @@ const db = mysql.createConnection(
 const init = () => {
     inquirer.prompt([mainMenu, newDept])
         .then((answers) => {
-            switch (answers.mainMenu) {
+            switch (answers) {
                 case 'View all departments':
                     viewTable(departments);
                     break;
