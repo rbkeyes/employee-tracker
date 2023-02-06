@@ -16,13 +16,25 @@ const db = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
-const init = async() => {
+const init = async () => {
     try {
         const answers = await inquirer.prompt(questions);
         console.log(answers);
     } catch (err) {
         console.error(err);
     }
-}; 
+};
+
+const selectAll = async (sql) => {
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        const resultsArr = (results.map(a => a.name));
+        return resultsArr;
+        }
+    )};
 
 init();
+

@@ -1,3 +1,5 @@
+const { departments, roles, employees } = require('./queries')
+
 const questions = [
     {
         name: 'mainMenu',
@@ -23,11 +25,10 @@ const questions = [
         name: 'dept',
         type: 'list',
         message: 'What department does the role belong to?',
-        choices: ['accounting', 'engineering', 'data science'],
+        choices: [], 
         when: (answers) => answers.salary
-    }
+        },
 
 ];
-
 
 module.exports = questions;
