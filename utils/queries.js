@@ -15,20 +15,19 @@ const employees =
     LEFT JOIN department AS d
     ON r.department_id = d.id
     LEFT JOIN Employee m
-    ON e.manager_id = m.id`;
+    ON e.manager_id = m.id`;    
 
-const addRole =
-    `INSERT INTO role (title, salary, department_id)
-    VALUES(?)`
+const addDepartment = `INSERT INTO department (name)
+    VALUES(?)`;
 
-const addEmployee = 
-`INSERT INTO employee (first_name, last_name, role, manager)
-VALUES(?)`
+const addRole = `INSERT INTO role (title, salary, department_id)
+VALUES(?, ?, ?)`;
 
-// role_id = answers.employeeRole
-const updateEmployeeRole = 
-`UPDATE employee
+const addEmployee = `INSERT INTO employee (first_name, last_name, role, manager)
+VALUES(?, ?, ? ,?)`;
+
+const updateRole = `UPDATE employee
 SET role_id = ?
-WHERE id = ?`
+WHERE id = ?`;
 
-module.exports = { departments, roles, employees, addRole, addEmployee, updateEmployeeRole };
+module.exports = { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole };
