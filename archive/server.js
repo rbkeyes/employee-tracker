@@ -2,8 +2,8 @@
 const mysql = require('mysql2');
 const cTable = require('console.table');
 const inquirer = require('inquirer');
-const { list, mainMenu, newDept, newRole, newEmployee, updateEmployeeRole } = require('./utils/prompts');
-const { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole } = require('./utils/queries');
+const { list, mainMenu, newDept, newRole, newEmployee, updateEmployeeRole } = require('./prompts');
+const { departments, roles, employees, addDepartment, addRole, addEmployee, updateRole } = require('../utils/queries');
 
 // const Department = require('./lib/department')
 
